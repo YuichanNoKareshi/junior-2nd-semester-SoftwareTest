@@ -1,0 +1,92 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AnnouncementDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Dao</a>
+</div>
+
+<h1>Coverage Summary for Class: AnnouncementDao (com.fc.interblog.Dao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">AnnouncementDao$MockitoMock$1643504376</td>
+  </tr>
+  <tr>
+    <td class="name">AnnouncementDao$MockitoMock$1643504376$auxiliary$gk7ya3gY</td>
+  </tr>
+  <tr>
+    <td class="name">AnnouncementDao$MockitoMock$1643504376$auxiliary$s6txmZ1S</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Dao;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Entity.Announcement;
+<i class="no-highlight">4</i>&nbsp;import com.fc.interblog.Utils.ServerException;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import java.util.List;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;public interface AnnouncementDao {
+<i class="no-highlight">9</i>&nbsp;    Announcement addAnnouncement(Announcement announcement, boolean newGroup);
+<i class="no-highlight">10</i>&nbsp;    Announcement getAnnouncementByGroupId(Long id) throws ServerException;
+<i class="no-highlight">11</i>&nbsp;    void saveAnnouncement(Announcement announcement);
+<i class="no-highlight">12</i>&nbsp;    List&lt;Announcement&gt; getAnnouncements(Long start, Long count, Boolean hasDeleted);
+<i class="no-highlight">13</i>&nbsp;    List&lt;Announcement&gt; getAnnouncementHistory(Long id);
+<i class="no-highlight">14</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 23:22</div>
+</div>
+</body>
+</html>

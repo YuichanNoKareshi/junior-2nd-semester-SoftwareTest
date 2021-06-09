@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Repository</a>
+</div>
+
+<h1>Coverage Summary for Class: UserRepository (com.fc.interblog.Repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UserRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Repository;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Entity.User;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.data.jpa.repository.Modifying;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import javax.persistence.Tuple;
+<i class="no-highlight">9</i>&nbsp;import java.util.List;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+<i class="no-highlight">12</i>&nbsp;    @Query(&quot;from User where nickname=?1&quot;)
+<i class="no-highlight">13</i>&nbsp;    User findUserByNickname(String name);
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select * from user natural join(select followee as user_id from follow where follower=?1 limit ?2,?3) as U&quot;)
+<i class="no-highlight">16</i>&nbsp;    List&lt;User&gt; getFollows(Long id, Long start, Long count);
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select * from user natural join(select follower as user_id from follow where followee=?1 limit ?2,?3) as U&quot;)
+<i class="no-highlight">19</i>&nbsp;    List&lt;User&gt; getFollowers(Long id, Long start, Long count);
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    @Query(nativeQuery = true, value = &quot;insert into follow values(?1,?2)&quot;)
+<i class="no-highlight">22</i>&nbsp;    @Modifying
+<i class="no-highlight">23</i>&nbsp;    void follow(Long u1, Long u2);
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @Query(nativeQuery = true, value = &quot;delete from follow where follower=?1 and followee=?2&quot;)
+<i class="no-highlight">26</i>&nbsp;    @Modifying
+<i class="no-highlight">27</i>&nbsp;    void unFollow(Long u1, Long u2);
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select exists(select*from follow where follower=?1 and followee=?2)&quot;)
+<i class="no-highlight">30</i>&nbsp;    Integer getFollowed(Long u1, Long u2);
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user where user_id&gt;?1 and(?3=&#39;&#39;or nickname like ?3)order by user_id limit ?2&quot;)
+<i class="no-highlight">33</i>&nbsp;    List&lt;User&gt; getUsersIdInc(Long startId, Long count, String name);
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user where nickname&gt;(select nickname from user where user_id=?1)and(?3=&#39;&#39;or nickname like ?3)order by nickname limit ?2&quot;)
+<i class="no-highlight">36</i>&nbsp;    List&lt;User&gt; getUsersNameInc(Long startId, Long count, String name);
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user where user_id&lt;?1 and(?3=&#39;&#39;or nickname like ?3)order by user_id desc limit ?2&quot;)
+<i class="no-highlight">39</i>&nbsp;    List&lt;User&gt; getUsersIdDec(Long startId, Long count, String name);
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user where nickname&lt;(select nickname from user where user_id=?1)and(?3=&#39;&#39;or nickname like ?3)order by nickname desc limit ?2&quot;)
+<i class="no-highlight">42</i>&nbsp;    List&lt;User&gt; getUsersNameDec(Long startId, Long count, String name);
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select exists(select * from like_post where user_id=?1 and post_id=?2)&quot;)
+<i class="no-highlight">45</i>&nbsp;    Long getLiked(Long userId, Long postId);
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    @Modifying
+<i class="no-highlight">48</i>&nbsp;    @Query(nativeQuery = true, value = &quot;insert into like_post values(?1,?2)&quot;)
+<i class="no-highlight">49</i>&nbsp;    void likePost(Long userId, Long postId);
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    @Modifying
+<i class="no-highlight">52</i>&nbsp;    @Query(nativeQuery = true, value = &quot;delete from like_post where user_id=?1 and post_id=?2&quot;)
+<i class="no-highlight">53</i>&nbsp;    void dislikePost(Long userId, Long postId);
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select exists(select * from like_remark where user_id=?1 and remark_id=?2)&quot;)
+<i class="no-highlight">56</i>&nbsp;    Long getLikedRemark(Long userId, Long remarkId);
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;    @Modifying
+<i class="no-highlight">59</i>&nbsp;    @Query(nativeQuery = true, value = &quot;insert into like_remark values(?1,?2)&quot;)
+<i class="no-highlight">60</i>&nbsp;    void likeRemark(Long userId, Long remarkId);
+<i class="no-highlight">61</i>&nbsp;
+<i class="no-highlight">62</i>&nbsp;    @Modifying
+<i class="no-highlight">63</i>&nbsp;    @Query(nativeQuery = true, value = &quot;delete from like_remark where user_id=?1 and remark_id=?2&quot;)
+<i class="no-highlight">64</i>&nbsp;    void dislikeRemark(Long userId, Long remarkId);
+<i class="no-highlight">65</i>&nbsp;
+<i class="no-highlight">66</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user natural join(select user_id from user_interest where interest_id=(select interest_id from interest where title=?1)order by user_id)as U&quot;)
+<i class="no-highlight">67</i>&nbsp;    List&lt;User&gt; searchUserByInterest(String title, Long startId, Long count);
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user where user_id&gt;?2 and nickname like ?1 order by user_id limit ?3&quot;)
+<i class="no-highlight">70</i>&nbsp;    List&lt;User&gt; searchUser(String name, Long startId, Long count);
+<i class="no-highlight">71</i>&nbsp;
+<i class="no-highlight">72</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select title as interest,followCount from(select*from(select interest_id,count(*)as followCount from post_interest group by interest_id)as I order by followCount desc limit ?1)as I natural join interest order by followCount desc&quot;)
+<i class="no-highlight">73</i>&nbsp;    List&lt;Tuple&gt; popularInterests(Integer limit);
+<i class="no-highlight">74</i>&nbsp;
+<i class="no-highlight">75</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from user order by follower_count limit 4&quot;)
+<i class="no-highlight">76</i>&nbsp;    List&lt;User&gt; getPopular();
+<i class="no-highlight">77</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 23:22</div>
+</div>
+</body>
+</html>

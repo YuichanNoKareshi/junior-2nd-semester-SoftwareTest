@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Post</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Post (com.fc.interblog.Entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Post</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (15/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (15/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$DaJ66Dob</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$fiex4Xlt</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$FOqzKXSL</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$gbpOu2Fs</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$hvgrWD64</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$OjhWMau4</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$OLQjjL91</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$WrVCRYqm</td>
+  </tr>
+  <tr>
+    <td class="name">Post$HibernateProxy$X32IWRvg</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (15/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (15/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+<i class="no-highlight">4</i>&nbsp;import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+<i class="no-highlight">5</i>&nbsp;import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+<i class="no-highlight">6</i>&nbsp;import lombok.Data;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import javax.persistence.*;
+<i class="no-highlight">9</i>&nbsp;import java.util.Date;
+<i class="no-highlight">10</i>&nbsp;import java.util.List;
+<i class="no-highlight">11</i>&nbsp;
+<b class="fc"><i class="no-highlight">12</i>&nbsp;@Data</b>
+<i class="no-highlight">13</i>&nbsp;@Entity
+<i class="no-highlight">14</i>&nbsp;@Table(name = &quot;post&quot;)
+<i class="no-highlight">15</i>&nbsp;@JsonIgnoreProperties(value = {&quot;handler&quot;,&quot;hibernateLazyInitializer&quot;,&quot;fieldHandler&quot;})
+<i class="no-highlight">16</i>&nbsp;@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = &quot;postId&quot;)
+<i class="no-highlight">17</i>&nbsp;public class Post {
+<i class="no-highlight">18</i>&nbsp;    @Id
+<i class="no-highlight">19</i>&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<i class="no-highlight">20</i>&nbsp;    @Column(name = &quot;post_id&quot;)
+<b class="fc"><i class="no-highlight">21</i>&nbsp;    private Long postId;</b>
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;    @Column(name = &quot;like_count&quot;)
+<b class="fc"><i class="no-highlight">24</i>&nbsp;    private Long likeCount;</b>
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    @Column(name = &quot;read_count&quot;)
+<b class="fc"><i class="no-highlight">27</i>&nbsp;    private Long readCount;</b>
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    @Column(name = &quot;forward_count&quot;)
+<b class="fc"><i class="no-highlight">30</i>&nbsp;    private Long forwardCount;</b>
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;    @Column(name = &quot;remark_count&quot;)
+<b class="fc"><i class="no-highlight">33</i>&nbsp;    private Long remarkCount;</b>
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+<i class="no-highlight">36</i>&nbsp;    @JoinColumn(name = &quot;user_id&quot;, nullable = false)
+<b class="fc"><i class="no-highlight">37</i>&nbsp;    private User user;</b>
+<i class="no-highlight">38</i>&nbsp;
+<b class="fc"><i class="no-highlight">39</i>&nbsp;    private Date time;</b>
+<i class="no-highlight">40</i>&nbsp;
+<b class="fc"><i class="no-highlight">41</i>&nbsp;    private Long forwardedFrom;</b>
+<i class="no-highlight">42</i>&nbsp;
+<b class="fc"><i class="no-highlight">43</i>&nbsp;    private Boolean deleted;</b>
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    @Column(name = &quot;deleted_time&quot;)
+<b class="nc"><i class="no-highlight">46</i>&nbsp;    private Date deletedTime;</b>
+<i class="no-highlight">47</i>&nbsp;
+<b class="fc"><i class="no-highlight">48</i>&nbsp;    private Boolean cancelled;</b>
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+<i class="no-highlight">51</i>&nbsp;    @JoinTable(name = &quot;post_interest&quot;,
+<i class="no-highlight">52</i>&nbsp;            joinColumns={@JoinColumn(name=&quot;post_id&quot;, referencedColumnName=&quot;post_id&quot;, nullable=false, updatable=false)},
+<i class="no-highlight">53</i>&nbsp;            inverseJoinColumns={@JoinColumn(name=&quot;interest_id&quot;,referencedColumnName=&quot;interest_id&quot;, nullable=false, updatable=false)})
+<b class="fc"><i class="no-highlight">54</i>&nbsp;    private List&lt;Interest&gt; interests;</b>
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;    @Transient
+<b class="fc"><i class="no-highlight">57</i>&nbsp;    private String content;</b>
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;    @Transient
+<b class="fc"><i class="no-highlight">60</i>&nbsp;    private List&lt;Long&gt; pictures;</b>
+<i class="no-highlight">61</i>&nbsp;
+<i class="no-highlight">62</i>&nbsp;    @Transient
+<b class="fc"><i class="no-highlight">63</i>&nbsp;    private List&lt;String&gt; smallPictures;</b>
+<i class="no-highlight">64</i>&nbsp;
+<i class="no-highlight">65</i>&nbsp;    @Transient
+<b class="nc"><i class="no-highlight">66</i>&nbsp;    private List&lt;Long&gt; remarks;</b>
+<i class="no-highlight">67</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 15:00</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+本目录中的两个测试报告均为整个项目的完整测试报告，与本次作业相关的被测代码为com.fc.interblog.ServiceImpl包中的UserServiceImpl。

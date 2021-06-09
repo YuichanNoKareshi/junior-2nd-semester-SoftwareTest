@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RemarkService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Service</a>
+</div>
+
+<h1>Coverage Summary for Class: RemarkService (com.fc.interblog.Service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">RemarkService$MockitoMock$547908619</td>
+  </tr>
+  <tr>
+    <td class="name">RemarkService$MockitoMock$547908619$auxiliary$JXWsqFZG</td>
+  </tr>
+  <tr>
+    <td class="name">RemarkService$MockitoMock$547908619$auxiliary$oQgEacNz</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Service;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Entity.RemarkItem;
+<i class="no-highlight">4</i>&nbsp;import com.fc.interblog.Utils.ServerException;
+<i class="no-highlight">5</i>&nbsp;import com.fc.interblog.Utils.Transport;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;public interface RemarkService {
+<i class="no-highlight">10</i>&nbsp;    ArrayList&lt;Transport.RemarkListItem&gt; getRemarksUnderPost(Long me, Long postId, Long startId, Long count);
+<i class="no-highlight">11</i>&nbsp;    ArrayList&lt;Transport.ReplyListItem&gt; getRemarksUnderRemark(Long me, Long remarkId, Long startId, Long count);
+<i class="no-highlight">12</i>&nbsp;    RemarkItem getRemarkById(Long remarkId) throws ServerException;
+<i class="no-highlight">13</i>&nbsp;    Transport.RemarkResponse addPostRemark(Long postId, Long userId, String content) throws ServerException;
+<i class="no-highlight">14</i>&nbsp;    Transport.RemarkResponse addRemarkRemark(Long userId, Long underRemark, Long replyRemark, String content) throws ServerException;
+<i class="no-highlight">15</i>&nbsp;    void deleteRemark(Long remarkId);
+<i class="no-highlight">16</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 23:22</div>
+</div>
+</body>
+</html>

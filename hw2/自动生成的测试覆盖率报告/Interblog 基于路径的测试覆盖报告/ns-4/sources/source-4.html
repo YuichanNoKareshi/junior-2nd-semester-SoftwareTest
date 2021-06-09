@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IdGeneratorDaoImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.DaoImpl</a>
+</div>
+
+<h1>Coverage Summary for Class: IdGeneratorDaoImpl (com.fc.interblog.DaoImpl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IdGeneratorDaoImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (3/15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">IdGeneratorDaoImpl$$EnhancerBySpringCGLIB$$c0d1fa51</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (3/15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.DaoImpl;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Dao.IdGeneratorDao;
+<i class="no-highlight">4</i>&nbsp;import com.fc.interblog.Entity.IdGenerator;
+<i class="no-highlight">5</i>&nbsp;import com.fc.interblog.Repository.IdGeneratorRepository;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.stereotype.Repository;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;@Repository
+<i class="no-highlight">12</i>&nbsp;public class IdGeneratorDaoImpl implements IdGeneratorDao {
+<i class="no-highlight">13</i>&nbsp;    private IdGeneratorRepository idGeneratorRepository;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    @Autowired
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    public IdGeneratorDaoImpl(IdGeneratorRepository idGeneratorRepository) {</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.idGeneratorRepository = idGeneratorRepository;</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    }</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    @Override
+<i class="no-highlight">21</i>&nbsp;    public Long nextId(Long tag) {
+<b class="nc"><i class="no-highlight">22</i>&nbsp;        Optional&lt;IdGenerator&gt; opt = idGeneratorRepository.findById(tag);</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        if (opt.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;            IdGenerator generator = opt.get();</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;            Long result = generator.getNextValue();</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;            generator.setNextValue(result + 1);</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;            idGeneratorRepository.save(generator);</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;            return result;</b>
+<i class="no-highlight">29</i>&nbsp;        }
+<i class="no-highlight">30</i>&nbsp;        else {
+<b class="nc"><i class="no-highlight">31</i>&nbsp;            IdGenerator generator = new IdGenerator();</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;            generator.setId(tag);</b>
+<b class="nc"><i class="no-highlight">33</i>&nbsp;            generator.setNextValue(2L);</b>
+<b class="nc"><i class="no-highlight">34</i>&nbsp;            idGeneratorRepository.save(generator);</b>
+<b class="nc"><i class="no-highlight">35</i>&nbsp;            return 1L;</b>
+<i class="no-highlight">36</i>&nbsp;        }
+<i class="no-highlight">37</i>&nbsp;    }
+<i class="no-highlight">38</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 15:00</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AnnouncementService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Service</a>
+</div>
+
+<h1>Coverage Summary for Class: AnnouncementService (com.fc.interblog.Service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">AnnouncementService$MockitoMock$1178205809</td>
+  </tr>
+  <tr>
+    <td class="name">AnnouncementService$MockitoMock$1178205809$auxiliary$Hh4T1nc0</td>
+  </tr>
+  <tr>
+    <td class="name">AnnouncementService$MockitoMock$1178205809$auxiliary$skk2Hbow</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Service;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Utils.ServerException;
+<i class="no-highlight">4</i>&nbsp;import com.fc.interblog.Utils.Transport;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;public interface AnnouncementService {
+<i class="no-highlight">9</i>&nbsp;    Long announce(Long uid, String title, String content) throws ServerException;
+<i class="no-highlight">10</i>&nbsp;    void modifyAnnouncement(Long uid, Long id, String title, String content) throws ServerException;
+<i class="no-highlight">11</i>&nbsp;    void removeAnnouncement(Long id);
+<i class="no-highlight">12</i>&nbsp;    ArrayList&lt;Transport.AnnouncementItem&gt; getAnnouncements(boolean hasDeleted, Long start, Long count) throws ServerException;
+<i class="no-highlight">13</i>&nbsp;    ArrayList&lt;Transport.AnnouncementItem&gt; getAnnouncementHistory(Long id) throws ServerException;
+<i class="no-highlight">14</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 15:00</div>
+</div>
+</body>
+</html>

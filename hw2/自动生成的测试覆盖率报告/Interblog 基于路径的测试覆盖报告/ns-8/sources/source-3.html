@@ -1,0 +1,212 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RemarkServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.ServiceImpl</a>
+</div>
+
+<h1>Coverage Summary for Class: RemarkServiceImpl (com.fc.interblog.ServiceImpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RemarkServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (55/55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.ServiceImpl;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Constant.Constraints;
+<i class="no-highlight">4</i>&nbsp;import com.fc.interblog.Constant.ExceptionMessage;
+<i class="no-highlight">5</i>&nbsp;import com.fc.interblog.Dao.PostDao;
+<i class="no-highlight">6</i>&nbsp;import com.fc.interblog.Dao.RemarkItemDao;
+<i class="no-highlight">7</i>&nbsp;import com.fc.interblog.Dao.UserDao;
+<i class="no-highlight">8</i>&nbsp;import com.fc.interblog.Entity.Post;
+<i class="no-highlight">9</i>&nbsp;import com.fc.interblog.Entity.RemarkItem;
+<i class="no-highlight">10</i>&nbsp;import com.fc.interblog.Service.RemarkService;
+<i class="no-highlight">11</i>&nbsp;import com.fc.interblog.Utils.ServerException;
+<i class="no-highlight">12</i>&nbsp;import com.fc.interblog.Utils.Transport;
+<i class="no-highlight">13</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">14</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">17</i>&nbsp;import java.util.Date;
+<i class="no-highlight">18</i>&nbsp;import java.util.List;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;@Service
+<i class="no-highlight">21</i>&nbsp;public class RemarkServiceImpl implements RemarkService {
+<i class="no-highlight">22</i>&nbsp;    private RemarkItemDao remarkItemDao;
+<i class="no-highlight">23</i>&nbsp;    private PostDao postDao;
+<i class="no-highlight">24</i>&nbsp;    private UserDao userDao;
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    @Autowired
+<b class="fc"><i class="no-highlight">27</i>&nbsp;    public RemarkServiceImpl(RemarkItemDao remarkItemDao, PostDao postDao, UserDao userDao) {</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        this.remarkItemDao = remarkItemDao;</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        this.postDao = postDao;</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        this.userDao = userDao;</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;    }</b>
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;    @Override
+<i class="no-highlight">34</i>&nbsp;    public ArrayList&lt;Transport.RemarkListItem&gt; getRemarksUnderPost(Long me, Long postId, Long startId, Long count) {
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        List&lt;RemarkItem&gt; remarks = remarkItemDao.getRemarksUnderPost(postId, startId, count);</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        ArrayList&lt;Transport.RemarkListItem&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;        for (RemarkItem remark : remarks)</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;            result.add(new Transport.RemarkListItem(remark, userDao.getLikedRemark(me, remark.getId()), remarkItemDao.replyCount(remark.getId())));</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        return result;</b>
+<i class="no-highlight">40</i>&nbsp;    }
+<i class="no-highlight">41</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;    @Override
+<i class="no-highlight">43</i>&nbsp;    public ArrayList&lt;Transport.ReplyListItem&gt; getRemarksUnderRemark(Long me, Long remarkId, Long startId, Long count) {
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        List&lt;RemarkItem&gt; remarks = remarkItemDao.getRemarksUnderRemark(remarkId, startId, count);</b>
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        ArrayList&lt;Transport.ReplyListItem&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;        for (RemarkItem remark : remarks)</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;            result.add(new Transport.ReplyListItem(remark, userDao.getLikedRemark(me, remark.getId())));</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        return result;</b>
+<i class="no-highlight">49</i>&nbsp;    }
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    @Override
+<i class="no-highlight">52</i>&nbsp;    public RemarkItem getRemarkById(Long remarkId) throws ServerException {
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        return remarkItemDao.getRemarkById(remarkId);</b>
+<i class="no-highlight">54</i>&nbsp;    }
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;    @Override
+<i class="no-highlight">57</i>&nbsp;    public Transport.RemarkResponse addPostRemark(Long postId, Long userId, String content) throws ServerException {
+<b class="fc"><i class="no-highlight">58</i>&nbsp;        if (content.length() &gt; Constraints.REMARK_MAX)</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;            throw new ServerException(ExceptionMessage.INVALID_PARAMETER);</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;        RemarkItem remark = new RemarkItem();</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;        remark.setContent(content);</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        remark.setTime(new Date());</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;        remark.setDeleted(false);</b>
+<b class="fc"><i class="no-highlight">64</i>&nbsp;        remark.setLikeCount(0L);</b>
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        remark.setUnderPost(postId);</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        remark.setUnderRemark(-1L);</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;        remark.setUserId(userId);</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;        remark.setReplyRemark(-1L);</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;        Post post = postDao.getPostInfoById(postId);</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;        post.setRemarkCount(post.getRemarkCount() + 1);</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        postDao.savePostInfo(post);</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;        return new Transport.RemarkResponse(remarkItemDao.addRemark(remark));</b>
+<i class="no-highlight">73</i>&nbsp;    }
+<i class="no-highlight">74</i>&nbsp;
+<i class="no-highlight">75</i>&nbsp;    @Override
+<i class="no-highlight">76</i>&nbsp;    public Transport.RemarkResponse addRemarkRemark(Long userId, Long underRemark, Long replyRemark, String content) throws ServerException {
+<b class="fc"><i class="no-highlight">77</i>&nbsp;        if (content.length() &gt; Constraints.REMARK_MAX)</b>
+<b class="fc"><i class="no-highlight">78</i>&nbsp;            throw new ServerException(ExceptionMessage.INVALID_PARAMETER);</b>
+<b class="fc"><i class="no-highlight">79</i>&nbsp;        if ((underRemark.equals(replyRemark) &amp;&amp; remarkItemDao.getRemarkById(replyRemark).getUnderPost() == -1) ||</b>
+<b class="fc"><i class="no-highlight">80</i>&nbsp;                (!underRemark.equals(replyRemark) &amp;&amp; !remarkItemDao.checkUnder(underRemark, replyRemark)))</b>
+<b class="fc"><i class="no-highlight">81</i>&nbsp;            throw new ServerException(ExceptionMessage.PARAMETER_INCONSISTENT);</b>
+<b class="fc"><i class="no-highlight">82</i>&nbsp;        RemarkItem remark = new RemarkItem();</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;        remark.setReplyRemark(replyRemark);</b>
+<b class="fc"><i class="no-highlight">84</i>&nbsp;        remark.setUserId(userId);</b>
+<b class="fc"><i class="no-highlight">85</i>&nbsp;        remark.setUnderRemark(underRemark);</b>
+<b class="fc"><i class="no-highlight">86</i>&nbsp;        remark.setUnderPost(-1L);</b>
+<b class="fc"><i class="no-highlight">87</i>&nbsp;        remark.setLikeCount(0L);</b>
+<b class="fc"><i class="no-highlight">88</i>&nbsp;        remark.setDeleted(false);</b>
+<b class="fc"><i class="no-highlight">89</i>&nbsp;        remark.setContent(content);</b>
+<b class="fc"><i class="no-highlight">90</i>&nbsp;        remark.setTime(new Date());</b>
+<b class="fc"><i class="no-highlight">91</i>&nbsp;        return new Transport.RemarkResponse(remarkItemDao.addRemark(remark));</b>
+<i class="no-highlight">92</i>&nbsp;    }
+<i class="no-highlight">93</i>&nbsp;
+<i class="no-highlight">94</i>&nbsp;    @Override
+<i class="no-highlight">95</i>&nbsp;    public void deleteRemark(Long remarkId) {
+<i class="no-highlight">96</i>&nbsp;        try {
+<b class="fc"><i class="no-highlight">97</i>&nbsp;            RemarkItem remark = remarkItemDao.getRemarkById(remarkId);</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;            remark.setDeleted(true);</b>
+<b class="fc"><i class="no-highlight">99</i>&nbsp;            remark = remarkItemDao.saveRemark(remark);</b>
+<b class="fc"><i class="no-highlight">100</i>&nbsp;            if (remark.getUnderPost() != -1) {</b>
+<b class="fc"><i class="no-highlight">101</i>&nbsp;                Post post = postDao.getPostInfoById(remark.getUnderPost());</b>
+<b class="fc"><i class="no-highlight">102</i>&nbsp;                post.setRemarkCount(post.getRemarkCount() - 1);</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;                postDao.savePostInfo(post);</b>
+<i class="no-highlight">104</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">105</i>&nbsp;        } catch (ServerException ignored) {}</b>
+<b class="fc"><i class="no-highlight">106</i>&nbsp;    }</b>
+<i class="no-highlight">107</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 15:00</div>
+</div>
+</body>
+</html>

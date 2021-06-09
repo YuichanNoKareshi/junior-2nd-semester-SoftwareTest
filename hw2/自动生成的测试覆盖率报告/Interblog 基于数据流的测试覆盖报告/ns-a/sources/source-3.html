@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PostRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fc.interblog.Repository</a>
+</div>
+
+<h1>Coverage Summary for Class: PostRepository (com.fc.interblog.Repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">PostRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.fc.interblog.Repository;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fc.interblog.Entity.Post;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import java.util.List;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;public interface PostRepository extends JpaRepository&lt;Post, Long&gt; {
+<i class="no-highlight">10</i>&nbsp;    @Query(&quot;select count(p) from Post p where p.user.userId=?1 and p.deleted=false and p.cancelled=false&quot;)
+<i class="no-highlight">11</i>&nbsp;    Long getUserPostCount(Long uid);
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from post where user_id=?1 and ((?4 and cancelled=false)or(deleted=false and cancelled=false)) and (?2=-1 or post_id&lt;?2) order by post_id desc limit ?3&quot;)
+<i class="no-highlight">14</i>&nbsp;    List&lt;Post&gt; getUserPosts(Long uid, Long startId, Long count, boolean hasCancelled);
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from post where (?2=-1 or post_id&lt;?2) and deleted=false and cancelled=false and ((user_id in (select followee as user_id from follow where follower=?1) or user_id=?1)or post_id in (select post_id from post_interest natural join (select interest_id from user_interest where user_id=?1)as I)) order by post_id desc limit ?3&quot;)
+<i class="no-highlight">17</i>&nbsp;    List&lt;Post&gt; getHomePage(Long uid, Long startId, Long count);
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from post where cancelled=false and deleted=false and(?1=-1 or post_id&lt;?1)order by post_id desc limit ?2&quot;)
+<i class="no-highlight">20</i>&nbsp;    List&lt;Post&gt; getAllPosts(Long startId, Long count);
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from post where(cancelled=true or deleted=true)and(?1=-1 or post_id&lt;?1)order by post_id desc limit ?2&quot;)
+<i class="no-highlight">23</i>&nbsp;    List&lt;Post&gt; getDeletedPosts(Long startId, Long count);
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select exists(select*from post where post_id=?1 and user_id=?2)&quot;)
+<i class="no-highlight">26</i>&nbsp;    Integer checkOwner(Long postId, Long uid);
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    @Query(nativeQuery = true, value = &quot;select*from post natural join(select post_id from post_interest where(?2=-1 or post_id&lt;?2)and interest_id in(select interest_id from interest where title=?1)order by post_id desc limit ?3)as P where deleted=false and cancelled=false&quot;)
+<i class="no-highlight">29</i>&nbsp;    List&lt;Post&gt; searchPost(String interest, Long startId, Long count);
+<i class="no-highlight">30</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-11 23:22</div>
+</div>
+</body>
+</html>
